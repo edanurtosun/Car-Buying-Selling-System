@@ -1,0 +1,2400 @@
+//160202098 Edanur TOSUN //160202100 Merve TAFRALI
+//Databese class
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.*;
+
+public class Databese {
+    private JPanel panel1;
+    private JButton cityInsertButton;
+    private JButton gearTypeInsertButton;
+    private JTextField txtGType;
+    private JTextField txtCity;
+    private JButton fuelTypeInsertButton;
+    private JTextField txtFType;
+    private JTextField txtColor;
+    private JButton colorInsertButton;
+    private JComboBox cmbcd;
+    private JButton gearTypeDeleteButton;
+    private JComboBox cmbgd;
+    private JButton fuelTypeDeleteButton;
+    private JButton cityBringButton;
+    private JComboBox cmbfd;
+    private JButton colorDeleteButton;
+    private JButton gearTypeBringButton;
+    private JButton colorBringButton;
+    private JButton fuelTypeBringButton;
+    private JComboBox cmbcod;
+    private JTextField txtcityup;
+    private JTextField txtfuelup;
+    private JTextField txtgearup;
+    private JTextField txtcolorup;
+    private JButton cityUpdateButton;
+    private JButton fuelTypeUpdateButton;
+    private JButton gearTypeUpdateButton;
+    private JButton colorUpdateButton;
+    private JComboBox cmbcb;
+    private JComboBox cmbgb;
+    private JComboBox cmbcob;
+    private JComboBox cmbfb;
+    private JButton fillButton;
+    private JButton cityDeletebutton;
+
+    public int say(){
+        int sayac=0;
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM sehir");
+
+            while(myRs.next()){
+                sayac++;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sayac;
+    }
+    public int say2(){
+        int sayac=0;
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM vitesturu");
+
+            while(myRs.next()){
+                sayac++;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sayac;
+    }
+    public int say3(){
+        int sayac=0;
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM renk");
+
+            while(myRs.next()){
+                sayac++;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sayac;
+    }
+    public int say4(){
+        int sayac=0;
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM yakitturu");
+
+            while(myRs.next()){
+                sayac++;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sayac;
+    }
+
+    public  void ccty(){
+        int itemCount = cmbcd.getItemCount();
+
+        for(int i=0;i<itemCount;i++){
+            cmbcd.removeItemAt(0);
+        }
+        cmbcd.addItem("");
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM sehir");
+
+            while(myRs.next())
+            {
+                cmbcd.addItem(myRs.getString(1)+" , "+myRs.getString(2));
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        //panel1.add(cmbcd);
+    }
+    public  void cgty(){
+        int itemCount = cmbgd.getItemCount();
+
+        for(int i=0;i<itemCount;i++){
+            cmbgd.removeItemAt(0);
+        }
+        cmbgd.addItem("");
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM vitesturu");
+
+            while(myRs.next())
+            {
+                cmbgd.addItem(myRs.getString(1)+" , "+myRs.getString(2));
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        //panel1.add(cmbcd);
+    }
+    public  void cfty(){
+        int itemCount = cmbfd.getItemCount();
+
+        for(int i=0;i<itemCount;i++){
+            cmbfd.removeItemAt(0);
+        }
+        cmbfd.addItem("");
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM yakitturu");
+
+            while(myRs.next())
+            {
+                cmbfd.addItem(myRs.getString(1)+" , "+myRs.getString(2));
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        //panel1.add(cmbcd);
+    }
+    public  void cclr(){
+        int itemCount = cmbcod.getItemCount();
+
+        for(int i=0;i<itemCount;i++){
+            cmbcod.removeItemAt(0);
+        }
+        cmbcod.addItem("");
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM renk");
+
+            while(myRs.next())
+            {
+                cmbcod.addItem(myRs.getString(1)+" , "+myRs.getString(2));
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        //panel1.add(cmbcd);
+    }
+    public  void ccty1(){
+        int itemCount = cmbcb.getItemCount();
+
+        for(int i=0;i<itemCount;i++){
+            cmbcb.removeItemAt(0);
+        }
+        cmbcb.addItem("");
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM sehir");
+
+            while(myRs.next())
+            {
+                cmbcb.addItem(myRs.getString(1)+" , "+myRs.getString(2));
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        //panel1.add(cmbcd);
+    }
+    public  void cgty1(){
+        int itemCount = cmbgb.getItemCount();
+
+        for(int i=0;i<itemCount;i++){
+            cmbgb.removeItemAt(0);
+        }
+        cmbgb.addItem("");
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM vitesturu");
+
+            while(myRs.next())
+            {
+                cmbgb.addItem(myRs.getString(1)+" , "+myRs.getString(2));
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        //panel1.add(cmbcd);
+    }
+    public  void cfty1(){
+        int itemCount = cmbfb.getItemCount();
+
+        for(int i=0;i<itemCount;i++){
+            cmbfb.removeItemAt(0);
+        }
+        cmbfb.addItem("");
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM yakitturu");
+
+            while(myRs.next())
+            {
+                cmbfb.addItem(myRs.getString(1)+" , "+myRs.getString(2));
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        //panel1.add(cmbcd);
+    }
+    public  void cclr1(){
+        int itemCount = cmbcob.getItemCount();
+
+        for(int i=0;i<itemCount;i++){
+            cmbcob.removeItemAt(0);
+        }
+        cmbcob.addItem("");
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM renk");
+
+            while(myRs.next())
+            {
+                cmbcob.addItem(myRs.getString(1)+" , "+myRs.getString(2));
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        //panel1.add(cmbcd);
+    }
+
+    public void deletecty(Integer id) throws SQLException {
+        Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");
+        Statement myStat = (Statement) myCon.createStatement();
+        ResultSet myRs = myStat.executeQuery("SELECT * FROM sehir ");
+
+        String q = "DELETE FROM sehir WHERE SehirID = ?";
+
+        try {
+            PreparedStatement st = myCon.prepareStatement(q);
+            st.setInt(1, id);
+            st.executeUpdate();
+            st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void deletegty(Integer id) throws SQLException {
+        Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");
+        Statement myStat = (Statement) myCon.createStatement();
+        ResultSet myRs = myStat.executeQuery("SELECT * FROM vitesturu ");
+
+        String q = "DELETE FROM vitesturu WHERE VitesTuruID = ?";
+
+        try {
+            PreparedStatement st = myCon.prepareStatement(q);
+            st.setInt(1, id);
+            st.executeUpdate();
+            st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void deletefty(Integer id) throws SQLException {
+        Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");
+        Statement myStat = (Statement) myCon.createStatement();
+        ResultSet myRs = myStat.executeQuery("SELECT * FROM yakitturu ");
+
+        String q = "DELETE FROM yakitturu WHERE YakitTuruID = ?";
+
+        try {
+            PreparedStatement st = myCon.prepareStatement(q);
+            st.setInt(1, id);
+            st.executeUpdate();
+            st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public void deleteclr(Integer id) throws SQLException {
+        Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");
+        Statement myStat = (Statement) myCon.createStatement();
+        ResultSet myRs = myStat.executeQuery("SELECT * FROM renk ");
+
+        String q = "DELETE FROM renk WHERE RenkID = ?";
+
+        try {
+            PreparedStatement st = myCon.prepareStatement(q);
+            st.setInt(1, id);
+            st.executeUpdate();
+            st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Databese() {
+
+        cityInsertButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id=say()+1;
+                Connection myCon = null;
+                String sehir=txtCity.getText();
+                try {
+                    myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");
+                    Statement myStat = (Statement) myCon.createStatement();
+                    ResultSet myRs = myStat.executeQuery("SELECT * FROM sehir ");
+
+                    String query = "INSERT INTO sehir ("
+                            + " SehirID,"
+                            + " Sehir) VALUES ("
+                            + "?, ?)";
+
+
+                    try {
+                        // set all the preparedstatement parameters
+                        PreparedStatement st = myCon.prepareStatement(query);
+                        st.setInt(1, id);
+                        st.setString(2, sehir);
+
+
+                        // execute the preparedstatement insert
+                        st.executeUpdate();
+                        st.close();
+                        //System.exit(1);
+                    } catch (Exception a) {
+                        System.err.println("Got an exception!");
+                        System.err.println(a.getMessage());
+                    }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+
+
+
+
+            }
+        });
+        gearTypeInsertButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id=say2()+1;
+                Connection myCon = null;
+                String sehir=txtGType.getText();
+                try {
+                    myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");Statement myStat = (Statement) myCon.createStatement();
+                    ResultSet myRs = myStat.executeQuery("SELECT * FROM vitesturu ");
+
+                    String query = "INSERT INTO vitesturu ("
+                            + " VitesTuruID,"
+                            + " Vites_Turu) VALUES ("
+                            + "?, ?)";
+
+
+                    try {
+                        // set all the preparedstatement parameters
+                        PreparedStatement st = myCon.prepareStatement(query);
+                        st.setInt(1, id);
+                        st.setString(2, sehir);
+
+
+                        // execute the preparedstatement insert
+                        st.executeUpdate();
+                        st.close();
+                        //System.exit(1);
+                    } catch (Exception a) {
+                        System.err.println("Got an exception!");
+                        System.err.println(a.getMessage());
+                    }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+
+
+            }
+        });
+        fuelTypeInsertButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id=say4()+1;
+                Connection myCon = null;
+                String sehir=txtFType.getText();
+                try {
+                    myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");Statement myStat = (Statement) myCon.createStatement();
+                    ResultSet myRs = myStat.executeQuery("SELECT * FROM yakitturu ");
+
+                    String query = "INSERT INTO yakitturu ("
+                            + " YakitTuruID,"
+                            + " Yakit_Turu) VALUES ("
+                            + "?, ?)";
+
+
+                    try {
+                        // set all the preparedstatement parameters
+                        PreparedStatement st = myCon.prepareStatement(query);
+                        st.setInt(1, id);
+                        st.setString(2, sehir);
+
+
+                        // execute the preparedstatement insert
+                        st.executeUpdate();
+                        st.close();
+                       // System.exit(1);
+                    } catch (Exception a) {
+                        System.err.println("Got an exception!");
+                        System.err.println(a.getMessage());
+                    }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+
+
+            }
+        });
+        colorInsertButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id=say3()+1;
+                Connection myCon = null;
+                String sehir=txtColor.getText();
+                try {
+                    myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");Statement myStat = (Statement) myCon.createStatement();
+                    ResultSet myRs = myStat.executeQuery("SELECT * FROM renk ");
+
+                    String query = "INSERT INTO renk ("
+                            + " RenkID,"
+                            + " Renk) VALUES ("
+                            + "?, ?)";
+
+
+                    try {
+                        // set all the preparedstatement parameters
+                        PreparedStatement st = myCon.prepareStatement(query);
+                        st.setInt(1, id);
+                        st.setString(2, sehir);
+
+
+                        // execute the preparedstatement insert
+                        st.executeUpdate();
+                        st.close();
+                       // System.exit(1);
+                    } catch (Exception a) {
+                        System.err.println("Got an exception!");
+                        System.err.println(a.getMessage());
+                    }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+
+
+            }
+        });
+
+        fillButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ccty();
+                cgty();
+                cfty();
+                cclr();
+                ccty1();
+                cgty1();
+                cfty1();
+                cclr1();
+            }
+        });
+
+        cityDeletebutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int txt=cmbcd.getSelectedIndex();
+                try {
+                    deletecty(txt);
+                    //System.exit(1);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+        gearTypeDeleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int txt=cmbgd.getSelectedIndex();
+                try {
+                    deletegty(txt);
+                    //System.exit(1);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+        fuelTypeDeleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int txt=cmbfd.getSelectedIndex();
+                try {
+                    deletefty(txt);
+                   // System.exit(1);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+        colorDeleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int txt=cmbcod.getSelectedIndex();
+                try {
+                    deleteclr(txt);
+                    //System.exit(1);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+
+        cityBringButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id = cmbcb.getSelectedIndex();
+                Connection myCon = null;
+                try {
+                    myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");
+                    Statement myStat = (Statement) myCon.createStatement();
+
+                    PreparedStatement preparedStatement = null;
+
+                    String selectSQL = "SELECT * FROM sehir WHERE SehirID = ?";
+
+                    preparedStatement = myCon.prepareStatement(selectSQL);
+                    preparedStatement.setInt(1, id);
+
+                    // execute select SQL stetement
+                    ResultSet rs = preparedStatement.executeQuery();
+                    while (rs.next()) {
+
+
+                        int upid = rs.getInt(1);
+                        String upiname = rs.getString(2);
+
+                        txtcityup.setText(upiname + "");
+
+
+
+                    }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+        gearTypeBringButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id = cmbgb.getSelectedIndex();
+                Connection myCon = null;
+                try {
+                    myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");
+                    Statement myStat = (Statement) myCon.createStatement();
+
+                    PreparedStatement preparedStatement = null;
+
+                    String selectSQL = "SELECT * FROM vitesturu WHERE VitesTuruID = ?";
+
+                    preparedStatement = myCon.prepareStatement(selectSQL);
+                    preparedStatement.setInt(1, id);
+
+                    // execute select SQL stetement
+                    ResultSet rs = preparedStatement.executeQuery();
+                    while (rs.next()) {
+
+
+                        int upid = rs.getInt(1);
+                        String upiname = rs.getString(2);
+
+                        txtgearup.setText(upiname + "");
+
+
+
+                    }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+        fuelTypeBringButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id = cmbfb.getSelectedIndex();
+                Connection myCon = null;
+                try {
+                    myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");
+                    Statement myStat = (Statement) myCon.createStatement();
+
+                    PreparedStatement preparedStatement = null;
+
+                    String selectSQL = "SELECT * FROM yakitturu WHERE YakitTuruID = ?";
+
+                    preparedStatement = myCon.prepareStatement(selectSQL);
+                    preparedStatement.setInt(1, id);
+
+                    // execute select SQL stetement
+                    ResultSet rs = preparedStatement.executeQuery();
+                    while (rs.next()) {
+
+
+                        int upid = rs.getInt(1);
+                        String upiname = rs.getString(2);
+
+                        txtfuelup.setText(upiname + "");
+
+
+
+                    }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+        colorBringButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id = cmbcob.getSelectedIndex();
+                Connection myCon = null;
+                try {
+                    myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");
+                    Statement myStat = (Statement) myCon.createStatement();
+
+                    PreparedStatement preparedStatement = null;
+
+                    String selectSQL = "SELECT * FROM renk WHERE RenkID = ?";
+
+                    preparedStatement = myCon.prepareStatement(selectSQL);
+                    preparedStatement.setInt(1, id);
+
+                    // execute select SQL stetement
+                    ResultSet rs = preparedStatement.executeQuery();
+                    while (rs.next()) {
+
+
+                        int upid = rs.getInt(1);
+                        String upiname = rs.getString(2);
+
+                        txtcolorup.setText(upiname + "");
+
+
+
+                    }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+
+        cityUpdateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");
+                    Statement myStat = (Statement) myCon.createStatement();
+                    ResultSet myRs = myStat.executeQuery("SELECT * FROM sehir ");
+
+                    String id = (txtcityup.getText());
+                    int sid=cmbcb.getSelectedIndex();
+
+
+                    String sql = "update sehir set Sehir='" + id + "' "+ "WHERE SehirID='" + sid + "' ";
+                    PreparedStatement pst = myCon.prepareStatement(sql);
+                    pst.execute();
+
+
+
+                } catch (Exception a) {
+                    System.err.println("Got an exception!");
+                    System.err.println(a.getMessage());
+                }
+            }
+        });
+        gearTypeUpdateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");
+                    Statement myStat = (Statement) myCon.createStatement();
+                    ResultSet myRs = myStat.executeQuery("SELECT * FROM vitesturu ");
+
+                    String id = (txtgearup.getText());
+                    int sid=cmbgb.getSelectedIndex();
+
+
+                    String sql = "update vitesturu set Vites_Turu='" + id + "' "+ "WHERE VitesTuruID='" + sid + "' ";
+                    PreparedStatement pst = myCon.prepareStatement(sql);
+                    pst.execute();
+
+
+
+                } catch (Exception a) {
+                    System.err.println("Got an exception!");
+                    System.err.println(a.getMessage());
+                }
+            }
+        });
+        fuelTypeUpdateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");
+                    Statement myStat = (Statement) myCon.createStatement();
+                    ResultSet myRs = myStat.executeQuery("SELECT * FROM yakitturu ");
+
+                    String id = (txtfuelup.getText());
+                    int sid=cmbfb.getSelectedIndex();
+
+
+                    String sql = "update yakitturu set Yakit_Turu='" + id + "' "+ "WHERE YakitTuruID='" + sid + "' ";
+                    PreparedStatement pst = myCon.prepareStatement(sql);
+                    pst.execute();
+
+
+
+                } catch (Exception a) {
+                    System.err.println("Got an exception!");
+                    System.err.println(a.getMessage());
+                }
+            }
+        });
+        colorUpdateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");
+                    Statement myStat = (Statement) myCon.createStatement();
+                    ResultSet myRs = myStat.executeQuery("SELECT * FROM renk ");
+
+                    String id = (txtcolorup.getText());
+                    int sid=cmbcob.getSelectedIndex();
+
+
+                    String sql = "update renk set Renk='" + id + "' "+ "WHERE RenkID='" + sid + "' ";
+                    PreparedStatement pst = myCon.prepareStatement(sql);
+                    pst.execute();
+
+
+
+                } catch (Exception a) {
+                    System.err.println("Got an exception!");
+                    System.err.println(a.getMessage());
+                }
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+
+        JFrame frame = new JFrame("Insert-Delete-Update-Database");
+        frame.setContentPane(new Databese().panel1);
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+
+    }
+}
+//Filtering Class
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class Filtering {
+    private JButton CityButton;
+    private JTextField txtCity;
+    private JComboBox comboBox1;
+    private JCheckBox DESCCBCity;
+    private JCheckBox CBPrice;
+    private JCheckBox CBGType;
+    private JCheckBox CBFType;
+    private JCheckBox CBKM;
+    private JCheckBox CBColor;
+    private JCheckBox CBDate;
+    private JButton filteringButton;
+    private JComboBox comboBox2;
+    private JTextField txtPrice;
+    private JTextField txtGType;
+    private JTextField txtFType;
+    private JTextField txtKm;
+    private JTextField txtColor;
+    private JTextField txtDate;
+    private JComboBox comboBox3;
+    private JComboBox comboBox4;
+    private JComboBox comboBox5;
+    private JComboBox comboBox6;
+    private JComboBox comboBox7;
+    private JButton priceFilteringButton;
+    private JButton gearTypeFilteringButton;
+    private JButton fuelTypeFilteringButton;
+    private JButton kmFilteringButton;
+    private JButton colorFilteringButton;
+    private JButton dateFilteringButton;
+    private JPanel panel1;
+    private JCheckBox DCAdName;
+    private JTextField textField1;
+    private JButton AdName;
+    private JCheckBox ASCAd;
+    private JCheckBox ASCCity;
+    private JCheckBox ASCPrice;
+    private JCheckBox ASCGType;
+    private JCheckBox ASCFType;
+    private JCheckBox ASCKm;
+    private JCheckBox ASCColor;
+    private JCheckBox ASCDate;
+    private JButton fillButton;
+
+    public  void ccty(){
+        int itemCount = comboBox1.getItemCount();
+
+        for(int i=0;i<itemCount;i++){
+            comboBox1.removeItemAt(0);
+        }
+        comboBox1.addItem("");
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM sehir");
+
+            while(myRs.next())
+            {
+                comboBox1.addItem(myRs.getString(1)+" , "+myRs.getString(2));
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        //panel1.add(cmbcd);
+    }
+    public  void cgty(){
+        int itemCount = comboBox3.getItemCount();
+
+        for(int i=0;i<itemCount;i++){
+            comboBox3.removeItemAt(0);
+        }
+        comboBox3.addItem("");
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM vitesturu");
+
+            while(myRs.next())
+            {
+                comboBox3.addItem(myRs.getString(1)+" , "+myRs.getString(2));
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        //panel1.add(cmbcd);
+    }
+    public  void cfty(){
+        int itemCount = comboBox4.getItemCount();
+
+        for(int i=0;i<itemCount;i++){
+            comboBox4.removeItemAt(0);
+        }
+        comboBox4.addItem("");
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM yakitturu");
+
+            while(myRs.next())
+            {
+                comboBox4.addItem(myRs.getString(1)+" , "+myRs.getString(2));
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        //panel1.add(cmbcd);
+    }
+    public  void cclr(){
+        int itemCount = comboBox6.getItemCount();
+
+        for(int i=0;i<itemCount;i++){
+            comboBox6.removeItemAt(0);
+        }
+        comboBox6.addItem("");
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM renk");
+
+            while(myRs.next())
+            {
+                comboBox6.addItem(myRs.getString(1)+" , "+myRs.getString(2));
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        //panel1.add(cmbcd);
+    }
+
+    public Filtering() {
+        String sorgu=null;
+        AdName.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id = 0;
+                String sorgu="";
+                String a[] = new String[1];
+                JTableFiltering calltable = new JTableFiltering();
+                int s=0;
+
+                if(DCAdName.isSelected() ){
+                    calltable.main(a,id,s,sorgu,true,false);
+
+                }
+
+                if(ASCAd.isSelected() ){
+                    calltable.main(a,id,s,sorgu,false,true);
+
+                }
+                if(DCAdName.isSelected()==false &&ASCAd.isSelected()==false){
+
+                    sorgu=textField1.getText();
+                    calltable.main(a,id,s,sorgu,false,false);
+
+                }
+            }
+        });
+        CityButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id =0;
+                String sorgu="";
+                String a[] = new String[1];
+                JTableFiltering calltable = new JTableFiltering();
+                int s=1;
+
+                if(DESCCBCity.isSelected() ){
+                    calltable.main(a,id,s,sorgu,true,false);
+
+                }
+
+                if(ASCCity.isSelected() ){
+                    calltable.main(a,id,s,sorgu,false,true);
+
+                }
+                if(DESCCBCity.isSelected()==false && ASCCity.isSelected()==false){
+                    id=comboBox1.getSelectedIndex();
+                    //id = Integer.parseInt(txtCity.getText());
+                    calltable.main(a,id,s,sorgu,false,false);
+
+                }
+
+
+            }
+        });
+        priceFilteringButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id =0;
+                String sorgu="";
+                String a[] = new String[1];
+                JTableFiltering calltable = new JTableFiltering();
+                int s=2;
+                if(CBPrice.isSelected() ){
+                    calltable.main(a,id,s,sorgu,true,false);
+
+                }
+
+                if(ASCPrice.isSelected() ){
+                    calltable.main(a,id,s,sorgu,false,true);
+
+                }
+                if(CBPrice.isSelected()==false && ASCPrice.isSelected()==false){
+                    id = comboBox2.getSelectedIndex();;
+                    calltable.main(a,id,s,sorgu,false,false);
+
+                }
+
+            }
+        });
+        gearTypeFilteringButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id =0;
+                String sorgu="";
+                String a[] = new String[1];
+                JTableFiltering calltable = new JTableFiltering();
+                int s=3;
+                if(CBGType.isSelected() ){
+                    calltable.main(a,id,s,sorgu,true,false);
+
+                }
+
+                if(ASCGType.isSelected() ){
+                    calltable.main(a,id,s,sorgu,false,true);
+
+                }
+                if(CBGType.isSelected()==false && ASCGType.isSelected()==false){
+                    id =comboBox3.getSelectedIndex();
+                    calltable.main(a,id,s,sorgu,false,false);
+
+                }
+            }
+        });
+        fuelTypeFilteringButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id =0;
+                String sorgu="";
+                String a[] = new String[1];
+                JTableFiltering calltable = new JTableFiltering();
+                int s=4;
+                if(CBFType.isSelected() ){
+                    calltable.main(a,id,s,sorgu,true,false);
+
+                }
+
+                if(ASCFType.isSelected() ){
+                    calltable.main(a,id,s,sorgu,false,true);
+
+                }
+                if(CBFType.isSelected()==false && ASCFType.isSelected()==false){
+                    id = comboBox4.getSelectedIndex();
+                    calltable.main(a,id,s,sorgu,false,false);
+
+                }
+            }
+        });
+        kmFilteringButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id =0;
+                String sorgu="";
+                String a[] = new String[1];
+                JTableFiltering calltable = new JTableFiltering();
+                int s=5;
+                if(CBKM.isSelected() ){
+                    calltable.main(a,id,s,sorgu,true,false);
+
+                }
+
+                if(ASCKm.isSelected() ){
+                    calltable.main(a,id,s,sorgu,false,true);
+
+                }
+                if(ASCKm.isSelected()==false && ASCKm.isSelected()==false){
+                    id =comboBox5.getSelectedIndex();
+                    calltable.main(a,id,s,sorgu,false,false);
+
+                }
+            }
+        });
+        colorFilteringButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id =0;
+                String sorgu="";
+                String a[] = new String[1];
+                JTableFiltering calltable = new JTableFiltering();
+                int s=6;
+                if(CBColor.isSelected() ){
+                    calltable.main(a,id,s,sorgu,true,false);
+
+                }
+
+                if(ASCColor.isSelected() ){
+                    calltable.main(a,id,s,sorgu,false,true);
+
+                }
+                if(CBColor.isSelected()==false && ASCColor.isSelected()==false){
+                    id = comboBox6.getSelectedIndex();
+                    calltable.main(a,id,s,sorgu,false,false);
+
+                }
+            }
+        });
+        dateFilteringButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id =0;
+                String sorgu="";
+                String a[] = new String[1];
+                JTableFiltering calltable = new JTableFiltering();
+                int s=7;
+                if(CBDate.isSelected() ){
+                    calltable.main(a,id,s,sorgu,true,false);
+
+                }
+
+                if(ASCDate.isSelected() ){
+                    calltable.main(a,id,s,sorgu,false,true);
+
+                }
+                if(CBDate.isSelected()==false && ASCDate.isSelected()==false){
+                    id = comboBox7.getSelectedIndex();
+                    calltable.main(a,id,s,sorgu,false,false);
+
+                }
+            }
+        });
+        filteringButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String sql1="",sql2="",sql3="",sql4="",sql5="",sql6="",sql7="",sql8="";
+                String sid = String.valueOf(comboBox1.getSelectedIndex());
+                if (!sid.equals("0")) {
+                  sql1=" AND ilan.Ilan_SehirID= '"+sid+"'";
+
+                }
+
+                String fiyat = String.valueOf(comboBox2.getSelectedIndex());
+                if (fiyat.equals("0")) {
+                    sql2="";
+                }else{
+                    if (fiyat.equals("1")){
+                        sql2=" AND ilan.Ilan_Fiyat BETWEEN 0 AND 50.000  ";
+
+                    }
+                    if (fiyat.equals("2")){
+                        sql2=" AND ilan.Ilan_Fiyat BETWEEN 50.000 AND 100.000  ";
+
+                    }
+                    if (fiyat.equals("3")){
+                        sql2=" AND ilan.Ilan_Fiyat BETWEEN 100.000 AND 150.000  ";
+
+                    }
+                    if (fiyat.equals("4")){
+                        sql2=" AND ilan.Ilan_Fiyat > 150.000  ";
+
+                    }
+
+
+                }
+
+                String yakit = String.valueOf(comboBox4.getSelectedIndex());
+                if (!yakit.equals("0")) {
+
+                    sql3=" AND araba.Araba_YakitTuruID= '"+yakit+"' ";
+
+                }
+
+                String vites = String.valueOf(comboBox3.getSelectedIndex());
+                if (!vites.equals("0")) {
+
+                    sql4=" AND araba.Araba_VitesTuruID= '"+vites+"' ";
+
+                }
+
+                String km =String.valueOf(comboBox5.getSelectedIndex());
+                if (km.equals("0")) {
+                    sql5="";
+                }else{
+
+                    if (km.equals("1")){
+                        sql5=" AND ilan.Ilan_Km BETWEEN 0 AND 50.000  ";
+
+                    }
+                    if (km.equals("2")){
+                        sql5=" AND ilan.Ilan_Km BETWEEN 50.000 AND 100.000 ";
+
+                    }
+                    if (km.equals("3")){
+                        sql5=" AND ilan.Ilan_Km BETWEEN 100.000 AND 150.000  ";
+
+                    }
+                    if (km.equals("4")){
+                        sql5=" AND ilan.Ilan_Km > 150.000 ";
+
+                    }
+
+                }
+                String renk = String.valueOf(comboBox6.getSelectedIndex());
+                if (!renk.equals("0")) {
+
+                    sql6=" AND araba.Araba_RenkID= '"+renk+"' " ;
+
+
+                }
+                String tarih = String.valueOf(comboBox7.getSelectedIndex());
+                if (tarih.equals("0")) {
+                    sql7="";
+                }else{
+
+                    if (tarih.equals("1")){
+                        sql7=" AND ilan.Ilan_Tarih = '2018-05-21' ";
+
+                    }
+                    if (tarih.equals("2")){
+                        sql7=" AND ilan.Ilan_Tarih BETWEEN  '2018-05-14' AND  '2018-05-21' ";
+
+                    }
+                    if (tarih.equals("3")){
+                        sql7=" AND ilan.Ilan_Tarih  BETWEEN '2018-04-21' AND '2018-05-21' ";
+
+                    }
+                    if (tarih.equals("4")){
+                        sql7=" AND ilan.Ilan_Tarih > '2017-05-21' ";
+
+                    }
+
+                }
+                String ad = textField1.getText();
+                if (!ad.equals("")) {
+
+                    sql8=" AND ilan.ilan_Adi= '"+ad+"'";
+
+
+                }
+
+
+                birlestir(sql1,sql2,sql3,sql4,sql5,sql6,sql7,sql8);
+
+            }
+
+        });
+        fillButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ccty();
+                cgty();
+                cfty();
+                cclr();
+            }
+        });
+    }
+
+    public void birlestir(String s1,String s2,String s3,String s4,String s5,String s6,String s7,String s8){
+        String ab="SELECT * FROM ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID ";
+        ab=ab+s1+s3+s4+s6+s8+s2+s5+s7;
+
+        String a[] = new String[1];
+        JTableF calltable = new JTableF();
+        calltable.main(a,ab);
+
+    }
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("filtering");
+        frame.setContentPane(new Filtering().panel1);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+
+    }
+}
+//Giris Class
+import javax.swing.*;
+import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.*;
+
+public class giris {
+    private JButton gonder;
+    private JPanel panel1;
+    private JButton updateButton;
+    private JButton deleteButton;
+    private JTextField txtAdName;
+    private JTextField txtCarBrand;
+    private JTextField txtAdDate;
+    private JTextField txtCarColor;
+    private JTextField txtAdPrice;
+    private JTextField txtAdKm;
+    private JTextField txtCarModel;
+    private JTextField txtDelete;
+    private JComboBox comboBox1;
+    private JTextField txtUpdateName;
+    private JTextField txtUpdatePrice;
+    private JTextField txtUpdateKm;
+    private JTextField txtUpdateDate;
+    private JTextField txtUpdateCBrand;
+    private JTextField txtUpdateCModel;
+    private JTextField txtUpdateCGearType;
+    private JTextField txtUpdateCFuelTour;
+    private JTextField txtUpdateCity;
+    private JTextField txtUpdateCColor;
+    private JComboBox comboBox2;
+    private JTextField txtDeleteId;
+    private JTextField txtUpdateId;
+    private JTextField txtAdId;
+    private JButton updateArabaButton;
+    private JButton databaseButton;
+    private JButton Bringbutton;
+    private JTextField txtBring;
+    private JButton filteringButton;
+    private JComboBox comboBox3;
+    private JComboBox comboBox4;
+    private JButton tableInsertDeleteUpdateButton;
+    private JComboBox comboBox5;
+    private JComboBox comboBox6;
+    private JComboBox comboBox7;
+    private JComboBox comboBox8;
+    private JButton fillButton;
+    private JTextField txtUpdateCGTeype;
+
+    public int say(){
+        int sayac=0;
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM ilan");
+
+            while(myRs.next()){
+                sayac++;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sayac;
+    }
+    public  void ccty(){
+        int itemCount = comboBox2.getItemCount();
+
+        for(int i=0;i<itemCount;i++){
+            comboBox2.removeItemAt(0);
+        }
+        comboBox2.addItem("");
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM sehir");
+
+            while(myRs.next())
+            {
+                comboBox2.addItem(myRs.getString(1)+" , "+myRs.getString(2));
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        //panel1.add(cmbcd);
+    }
+    public  void cgty(){
+        int itemCount = comboBox3.getItemCount();
+
+        for(int i=0;i<itemCount;i++){
+            comboBox3.removeItemAt(0);
+        }
+        comboBox3.addItem("");
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM vitesturu");
+
+            while(myRs.next())
+            {
+                comboBox3.addItem(myRs.getString(1)+" , "+myRs.getString(2));
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        //panel1.add(cmbcd);
+    }
+    public  void cfty(){
+        int itemCount = comboBox4.getItemCount();
+
+        for(int i=0;i<itemCount;i++){
+            comboBox4.removeItemAt(0);
+        }
+        comboBox4.addItem("");
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM yakitturu");
+
+            while(myRs.next())
+            {
+                comboBox4.addItem(myRs.getString(1)+" , "+myRs.getString(2));
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        //panel1.add(cmbcd);
+    }
+    public  void cclr(){
+        int itemCount = comboBox1.getItemCount();
+
+        for(int i=0;i<itemCount;i++){
+            comboBox1.removeItemAt(0);
+        }
+        comboBox1.addItem("");
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM renk");
+
+            while(myRs.next())
+            {
+                comboBox1.addItem(myRs.getString(1)+" , "+myRs.getString(2));
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        //panel1.add(cmbcd);
+    }
+    public  void ccty1(){
+        int itemCount = comboBox8.getItemCount();
+
+        for(int i=0;i<itemCount;i++){
+            comboBox8.removeItemAt(0);
+        }
+        comboBox8.addItem("");
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM sehir");
+
+            while(myRs.next())
+            {
+                comboBox8.addItem(myRs.getString(1)+" , "+myRs.getString(2));
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        //panel1.add(cmbcd);
+    }
+    public  void cgty1(){
+        int itemCount = comboBox5.getItemCount();
+
+        for(int i=0;i<itemCount;i++){
+            comboBox5.removeItemAt(0);
+        }
+        comboBox5.addItem("");
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM vitesturu");
+
+            while(myRs.next())
+            {
+                comboBox5.addItem(myRs.getString(1)+" , "+myRs.getString(2));
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        //panel1.add(cmbcd);
+    }
+    public  void cfty1(){
+        int itemCount = comboBox6.getItemCount();
+
+        for(int i=0;i<itemCount;i++){
+            comboBox6.removeItemAt(0);
+        }
+        comboBox6.addItem("");
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM yakitturu");
+
+            while(myRs.next())
+            {
+                comboBox6.addItem(myRs.getString(1)+" , "+myRs.getString(2));
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        //panel1.add(cmbcd);
+    }
+    public  void cclr1(){
+        int itemCount = comboBox7.getItemCount();
+
+        for(int i=0;i<itemCount;i++){
+            comboBox7.removeItemAt(0);
+        }
+        comboBox7.addItem("");
+
+        try {
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM renk");
+
+            while(myRs.next())
+            {
+                comboBox7.addItem(myRs.getString(1)+" , "+myRs.getString(2));
+            }
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        //panel1.add(cmbcd);
+    }
+
+    public void baglan(int Ilan_Id, String IlanAdi, Float IlanKm, String date, Float fiyat, String Sehir, String Marka, int renk, String model, int vites, int yakit) throws SQLException {
+        Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");
+        Statement myStat = (Statement) myCon.createStatement();
+        ResultSet myRs = myStat.executeQuery("SELECT * FROM ilan ");
+        Ilan_Id=say()+1;
+        String query = "INSERT INTO ilan ("
+                + " IlanID,"
+                + " Ilan_Adi,"
+                + " Ilan_Fiyat,"
+                + " Ilan_Km,"
+                + " Ilan_Tarih,"
+                + " Ilan_ArabaID,"
+                + " Ilan_SehirID) VALUES ("
+                + "?, ?, ?, ?, ?, ?, ?)";
+
+
+        try {
+            // set all the preparedstatement parameters
+            PreparedStatement st = myCon.prepareStatement(query);
+            st.setInt(1, Ilan_Id);
+            st.setString(2, IlanAdi);
+            st.setFloat(3, fiyat);
+            st.setFloat(4, IlanKm);
+            st.setString(5, date);
+            st.setInt(6, Ilan_Id);
+            st.setString(7, Sehir);
+
+            // execute the preparedstatement insert
+            st.executeUpdate();
+            st.close();
+        } catch (Exception e) {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
+        String query2 = "INSERT INTO Araba ("
+                + " ArabaID,"
+                + " Araba_Marka,"
+                + " Araba_Model,"
+                + " Araba_VitesTuruID,"
+                + " Araba_YakitTuruID,"
+                + " Araba_RenkID) VALUES ("
+                + "?, ?, ?, ?, ?, ?)";
+
+
+        try {
+            // set all the preparedstatement parameters
+            PreparedStatement st = myCon.prepareStatement(query2);
+            st.setInt(1, Ilan_Id);
+            st.setString(2, Marka);
+            st.setString(3, model);
+            st.setInt(4, vites);
+            st.setInt(5, yakit);
+            st.setInt(6, renk);
+
+
+            // execute the preparedstatement insert
+            st.executeUpdate();
+            st.close();
+        } catch (Exception e) {
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+        }
+
+    }
+
+    public void delete(Integer id) throws SQLException {
+        Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");
+        Statement myStat = (Statement) myCon.createStatement();
+        ResultSet myRs = myStat.executeQuery("SELECT * FROM ilan ");
+
+        String q = "DELETE FROM ilan WHERE IlanID = ?";
+
+        try {
+            PreparedStatement st = myCon.prepareStatement(q);
+            st.setInt(1, id);
+            st.executeUpdate();
+            st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String q2 = "DELETE FROM araba WHERE ArabaID = ?";
+        try {
+            PreparedStatement st2 = myCon.prepareStatement(q2);
+            st2 = myCon.prepareStatement(q2);
+            st2.setInt(1, id);
+            st2.executeUpdate();
+            st2.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public giris() {
+        gonder.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                String yazi = txtAdName.getText();
+                if (yazi==null){
+                    JOptionPane.showMessageDialog(null,"BOŞ DEĞER GİRİLEMEZ!");
+                    System.exit(1);
+
+                }
+
+                String yazi1 = txtAdKm.getText();
+                if (yazi1==null){
+                    JOptionPane.showMessageDialog(null,"BOŞ DEĞER GİRİLEMEZ!");
+                    System.exit(1);
+                }
+
+                String yazi2 = txtAdDate.getText();
+                if (yazi2==null){
+                    JOptionPane.showMessageDialog(null,"BOŞ DEĞER GİRİLEMEZ!");
+                    System.exit(1);
+                }
+                String yazi3 = String.valueOf(comboBox2.getSelectedIndex());
+                if (yazi3.equals("0")){
+                    JOptionPane.showMessageDialog(null,"BOŞ DEĞER GİRİLEMEZ!");
+                    System.exit(1);
+                }
+                String yazi4 = txtAdPrice.getText();
+                if (yazi4==null){
+                    JOptionPane.showMessageDialog(null,"BOŞ DEĞER GİRİLEMEZ!");
+                    System.exit(1);
+                }
+                String yazi5 = txtCarBrand.getText();
+                if (yazi5==null){
+                    JOptionPane.showMessageDialog(null,"BOŞ DEĞER GİRİLEMEZ!");
+                    System.exit(1);
+                }
+                String yazi6 = String.valueOf(comboBox1.getSelectedIndex());
+                if (yazi6.equals("0")){
+                    JOptionPane.showMessageDialog(null,"BOŞ DEĞER GİRİLEMEZ!");
+                    yazi6 = txtCarColor.getText();
+                }
+                String yazi7 = txtCarModel.getText();
+                if (yazi7==null){
+                    JOptionPane.showMessageDialog(null,"BOŞ DEĞER GİRİLEMEZ!");
+                    System.exit(1);
+                }
+                String yazi8 =  String.valueOf(comboBox3.getSelectedIndex());
+                if (yazi8.equals("0")){
+                    JOptionPane.showMessageDialog(null,"BOŞ DEĞER GİRİLEMEZ!");
+                    System.exit(1);
+                }
+                String yazi9 =  String.valueOf(comboBox1.getSelectedIndex());
+                if (yazi9.equals("0")){
+                    JOptionPane.showMessageDialog(null,"BOŞ DEĞER GİRİLEMEZ!");
+                    System.exit(1);
+                }
+                JOptionPane.showMessageDialog(null, "Veriler Eklendi...");
+                try {
+
+                    baglan(1, yazi, Float.valueOf(yazi1), yazi2, Float.valueOf(yazi4), yazi3, yazi5, Integer.valueOf(yazi6), yazi7, Integer.valueOf(yazi8), Integer.valueOf(yazi9));
+                    String a[] = new String[1];
+                    JTableTest calltable = new JTableTest();
+                    calltable.main(a);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+
+
+            }
+
+
+        });
+
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String txt = txtDeleteId.getText();
+
+                JOptionPane.showMessageDialog(null, "Veriler Silindi...");
+
+                try {
+                    delete(Integer.valueOf(txt));
+                    String a[] = new String[1];
+                    JTableTest calltable = new JTableTest();
+                    calltable.main(a);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+
+
+            }
+        });
+        updateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");
+                    Statement myStat = (Statement) myCon.createStatement();
+                    ResultSet myRs = myStat.executeQuery("SELECT * FROM ilan ");
+
+                    int id = Integer.valueOf(txtUpdateId.getText());
+                    String ad = txtUpdateName.getText();
+                    float fiyat = Float.valueOf(txtUpdatePrice.getText());
+                    float km = Float.valueOf(txtUpdateKm.getText());
+                    String t = txtUpdateDate.getText();
+                    int sehir = Integer.valueOf(txtUpdateCity.getText());
+
+
+                    JOptionPane.showMessageDialog(null, id);
+
+                    String sql = "update ilan set Ilan_Adi='" + ad + "'   " + ',' + "   Ilan_Fiyat='" + fiyat + "'  " + ',' + "    Ilan_Km='" + km + "'    " + ',' + "  Ilan_Tarih='" + t + "'    " + ',' + "   Ilan_SehirID='" + sehir + "'     " + "where IlanID='" + id + "'";
+                    PreparedStatement pst = myCon.prepareStatement(sql);
+                    pst.execute();
+
+                    JOptionPane.showMessageDialog(null, "Update edildi...");
+                    String a[] = new String[1];
+                    JTableTest calltable = new JTableTest();
+                    calltable.main(a);
+                } catch (Exception a) {
+                    System.err.println("Got an exception!");
+                    System.err.println(a.getMessage());
+                }
+
+
+            }
+        });
+        updateArabaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");
+                    Statement myStat = (Statement) myCon.createStatement();
+                    ResultSet myRs = myStat.executeQuery("SELECT * FROM araba ");
+
+                    int id = Integer.valueOf(txtUpdateId.getText());
+                    String ma = txtUpdateCBrand.getText();
+                    String mo = txtUpdateCModel.getText();
+                    int v = Integer.valueOf(txtUpdateCGearType.getText());
+                    int y = Integer.valueOf(txtUpdateCFuelTour.getText());
+                    int r = Integer.valueOf(txtUpdateCColor.getText());
+
+                    //araba update ediliyor
+                    String sql = "update araba set Araba_Marka='" + ma + "'   " + ',' + "   Araba_Model='" + mo + "'  " + ',' + "    Araba_VitesTuruID='" + v + "'    " + ',' + "  Araba_YakitTuruID='" + y + "'    " + ',' + "   Araba_RenkID='" + r + "'     " + "where ArabaID='" + id + "'";
+                    PreparedStatement pst = myCon.prepareStatement(sql);
+                    pst.execute();
+
+                    JOptionPane.showMessageDialog(null, "Update edildi...");
+
+                } catch (Exception a) {
+                    System.err.println("Got an exception!");
+                    System.err.println(a.getMessage());
+                }
+            }
+        });
+        databaseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String a[] = new String[1];
+                JTableTest calltable = new JTableTest();
+                calltable.main(a);
+
+            }
+        });
+        Bringbutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int id = Integer.valueOf(txtBring.getText());
+                Connection myCon = null;
+                try {
+                    myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");
+                    Statement myStat = (Statement) myCon.createStatement();
+
+                    PreparedStatement preparedStatement = null;
+
+                    String selectSQL = "SELECT * FROM ilan WHERE IlanID = ?";
+
+                    preparedStatement = myCon.prepareStatement(selectSQL);
+                    preparedStatement.setInt(1, id);
+
+                    // execute select SQL stetement
+                    ResultSet rs = preparedStatement.executeQuery();
+                    while (rs.next()) {
+
+
+                        int upid = rs.getInt("IlanID");
+                        String upiname = rs.getString("Ilan_Adi");
+                        String upprice = rs.getString("Ilan_Fiyat");
+                        String upkm = rs.getString("Ilan_Km");
+                        String update = rs.getString("Ilan_Tarih");
+                        int upaid = rs.getInt("Ilan_ArabaID");
+                        int upseid = rs.getInt("Ilan_SehirID");
+                        txtUpdateId.setText(upid + "");
+                        txtUpdateName.setText(upiname + "");
+                        txtUpdatePrice.setText(upprice + "");
+                        txtUpdateDate.setText(update + "");
+                        txtUpdateKm.setText(upkm + "");
+                        txtUpdateCity.setText(upseid + "");
+
+                    }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+                try {
+                    myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");
+                    Statement myStat = (Statement) myCon.createStatement();
+
+                    PreparedStatement preparedStatement = null;
+
+                    String selectSQL = "SELECT * FROM araba WHERE ArabaID = ?";
+
+                    preparedStatement = myCon.prepareStatement(selectSQL);
+                    preparedStatement.setInt(1, id);
+
+                    // execute select SQL stetement
+                    ResultSet rs = preparedStatement.executeQuery();
+                    while (rs.next()) {
+
+
+                        int upid = rs.getInt("ArabaID");
+                        String upiname = rs.getString("Araba_Marka");
+                        String upprice = rs.getString("Araba_Model");
+                        String upkm = rs.getString("Araba_VitesTuruID");
+                        String update = rs.getString("Araba_YakitTuruID");
+                        int upaid = rs.getInt("Araba_RenkID");
+
+                        txtUpdateCBrand.setText(upiname + "");
+                        txtUpdateCModel.setText(upprice + "");
+                        txtUpdateCGearType.setText(update + "");
+                        txtUpdateCFuelTour.setText(upkm + "");
+                        txtUpdateCColor.setText(upaid + "");
+
+                    }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+
+
+            }
+        });
+        filteringButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String a[] = new String[1];
+                Filtering calltable = new Filtering();
+                calltable.main(a);
+            }
+        });
+        tableInsertDeleteUpdateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String a[] = new String[1];
+                Databese calltable = new Databese();
+                calltable.main(a);
+            }
+        });
+        fillButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ccty();
+                cgty();
+                cfty();
+                cclr();
+                ccty1();
+                cgty1();
+                cfty1();
+                cclr1();
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("giris");
+        frame.setContentPane(new giris().panel1);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+
+    }
+
+
+}
+//JTable F Class
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class JTableF {
+    private JTable table1;
+    private JPanel panel1;
+    public static void main(String[] args, String s)
+    {
+        JFrame frame = new JFrame("JTable Test");
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JTable table = createTable(s);
+        JScrollPane scrollPane = new JScrollPane(table);
+        frame.getContentPane().add(scrollPane);
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    public static JTable createTable(String s)
+    {
+
+
+        JTable table = new JTable();
+        table.setFillsViewportHeight(true);
+        DefaultTableModel dtm = new DefaultTableModel();
+        table.setModel(dtm);
+        dtm.setColumnIdentifiers(new String [] {"Adı","Fiyat","Km","Tarih","Şehir","Marka","Model","VitesTuruID","YakitTuruID","RenkID"});
+        try{
+
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery(s);
+
+
+            while(myRs.next()){
+                String id = myRs.getString("IlanID");//burada db deki sutun adı olacak!
+                String adi = myRs.getString("Ilan_Adi");
+                int fiyat = myRs.getInt("Ilan_Fiyat");
+                int km = myRs.getInt("Ilan_Km");
+                String tarih = myRs.getString("Ilan_Tarih");
+                int arabaid = myRs.getInt("Ilan_ArabaID");
+                String sehir = myRs.getString("Sehir");
+                String aid = myRs.getString("ArabaID");//burada db deki sutun adı olacak!
+                String marka = myRs.getString("Araba_Marka");
+                String model = myRs.getString("Araba_Model");
+                String vites = myRs.getString("Vites_Turu");
+                String yakit = myRs.getString("Yakit_Turu");
+                String renk = myRs.getString("Renk");
+
+                dtm.addRow(new String[] {adi, String.valueOf(fiyat), String.valueOf(km),tarih, sehir,marka,model, vites, yakit, renk});
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return table;
+    }
+}
+//JTableFiltering Class
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.*;
+
+public class JTableFiltering {
+    private JTable table1;
+    private JPanel panel1;
+    private JTextField textField1;
+    private JButton button1;
+
+    public static void main(String[] args,int x,int s,String sorgu,boolean d,boolean as)
+    {
+        JFrame frame = new JFrame("JTable Fitering");
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JTable table = createTable(x,s,sorgu,d,as);
+        JScrollPane scrollPane = new JScrollPane(table);
+        frame.getContentPane().add(scrollPane);
+        frame.pack();
+        frame.setVisible(true);
+    }
+    public static JTable createTable(int x ,int s,String sorgu,boolean d,boolean as)
+    {
+        JTable table = new JTable();
+        table.setFillsViewportHeight(true);
+        DefaultTableModel dtm = new DefaultTableModel();
+        table.setModel(dtm);
+        dtm.setColumnIdentifiers(new String [] {"Adı","Fiyat","Km","Tarih","Şehir","Marka","Model","VitesTuruID","YakitTuruID","RenkID"});
+        Connection myCon = null;
+
+        try {
+            myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac", "root", "edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = null;
+            //ad
+            if(s==0){
+                if(d == true){
+
+                    String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID ORDER BY Ilan_Adi DESC ";
+                    myRs=myStat.executeQuery(query);
+                }
+                if(as == true){
+                    String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID ORDER BY Ilan_Adi ASC ";
+                    myRs=myStat.executeQuery(query);
+                }
+                if(d==false&& as==false){
+                    String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID AND Ilan_Adi = '"+sorgu+"' ";
+                    myRs=myStat.executeQuery(query);
+                }
+                while(myRs.next()){
+                    String id = myRs.getString("IlanID");//burada db deki sutun adı olacak!
+                    String adi = myRs.getString("Ilan_Adi");
+                    int fiyat = myRs.getInt("Ilan_Fiyat");
+                    int km = myRs.getInt("Ilan_Km");
+                    String tarih = myRs.getString("Ilan_Tarih");
+                    int arabaid = myRs.getInt("Ilan_ArabaID");
+                    String sehir = myRs.getString("Sehir");
+                    String aid = myRs.getString("ArabaID");//burada db deki sutun adı olacak!
+                    String marka = myRs.getString("Araba_Marka");
+                    String model = myRs.getString("Araba_Model");
+                    String vites = myRs.getString("Vites_Turu");
+                    String yakit = myRs.getString("Yakit_Turu");
+                    String renk = myRs.getString("Renk");
+
+                    dtm.addRow(new String[] {adi, String.valueOf(fiyat), String.valueOf(km),tarih, sehir,marka,model, vites, yakit, renk});
+                }
+            }
+            //city
+            else if(s==1){
+                if(d == true  ){
+                    String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID ORDER BY Ilan_SehirID  DESC ";
+                    myRs=myStat.executeQuery(query);
+                }
+                if(as == true){
+                    String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID ORDER BY Ilan_SehirID  ASC ";
+                    myRs=myStat.executeQuery(query);
+                }
+                if(d == false && as==false){
+                    String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID AND Ilan_SehirID = '"+x+"' ";
+                    myRs=myStat.executeQuery(query);
+                }
+
+                while(myRs.next()){
+                    String id = myRs.getString("IlanID");//burada db deki sutun adı olacak!
+                    String adi = myRs.getString("Ilan_Adi");
+                    int fiyat = myRs.getInt("Ilan_Fiyat");
+                    int km = myRs.getInt("Ilan_Km");
+                    String tarih = myRs.getString("Ilan_Tarih");
+                    int arabaid = myRs.getInt("Ilan_ArabaID");
+                    String sehir = myRs.getString("Sehir");
+                    String aid = myRs.getString("ArabaID");//burada db deki sutun adı olacak!
+                    String marka = myRs.getString("Araba_Marka");
+                    String model = myRs.getString("Araba_Model");
+                    String vites = myRs.getString("Vites_Turu");
+                    String yakit = myRs.getString("Yakit_Turu");
+                    String renk = myRs.getString("Renk");
+
+                    dtm.addRow(new String[] {adi, String.valueOf(fiyat), String.valueOf(km),tarih, sehir,marka,model, vites, yakit, renk});
+                }
+            }
+
+            //price
+            else if(s==2){
+                if(d == true){
+                    String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID ORDER BY  Ilan_Fiyat DESC ";
+                    myRs=myStat.executeQuery(query);
+                }
+                if(as == true){
+                    String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID ORDER BY  Ilan_Fiyat ASC ";
+                    myRs=myStat.executeQuery(query);
+                }
+                if(d == false && as == false){
+                    if(x == 1){
+                        String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID AND  Ilan_Fiyat BETWEEN 0 and 50.000 ";
+                        myRs=myStat.executeQuery(query);
+                    }
+                    else if(x == 2){
+                        String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID AND  Ilan_Fiyat BETWEEN 50.000 and 100.000 ";
+                        myRs=myStat.executeQuery(query);
+                    }
+                    else if(x == 3){
+                        String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID AND  Ilan_Fiyat BETWEEN 100.000 and 150.000 ";
+                        myRs=myStat.executeQuery(query);
+                    }
+                    else if(x == 4){
+                        String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID AND  Ilan_Fiyat > 150.000";
+                        myRs=myStat.executeQuery(query);
+                    }
+                }
+
+
+                while(myRs.next()){
+                    String id = myRs.getString("IlanID");//burada db deki sutun adı olacak!
+                    String adi = myRs.getString("Ilan_Adi");
+                    int fiyat = myRs.getInt("Ilan_Fiyat");
+                    int km = myRs.getInt("Ilan_Km");
+                    String tarih = myRs.getString("Ilan_Tarih");
+                    int arabaid = myRs.getInt("Ilan_ArabaID");
+                    String sehir = myRs.getString("Sehir");
+                    String aid = myRs.getString("ArabaID");//burada db deki sutun adı olacak!
+                    String marka = myRs.getString("Araba_Marka");
+                    String model = myRs.getString("Araba_Model");
+                    String vites = myRs.getString("Vites_Turu");
+                    String yakit = myRs.getString("Yakit_Turu");
+                    String renk = myRs.getString("Renk");
+
+                    dtm.addRow(new String[] {adi, String.valueOf(fiyat), String.valueOf(km),tarih, sehir,marka,model, vites, yakit, renk});
+                }
+
+            }
+            //geartype
+            else if(s==3){
+                if(d == true){
+                    String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID ORDER BY Araba_VitesTuruID DESC ";
+                    myRs=myStat.executeQuery(query);
+                }
+                if(as == true){
+                    String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID ORDER BY Araba_VitesTuruID ASC ";
+                    myRs=myStat.executeQuery(query);
+                }
+                if(d == false && as == false){
+                    String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID AND Araba_VitesTuruID= '"+x+"' ";
+                    myRs=myStat.executeQuery(query);
+                }
+
+                while(myRs.next()) {
+                    String id = myRs.getString("IlanID");//burada db deki sutun adı olacak!
+                    String adi = myRs.getString("Ilan_Adi");
+                    int fiyat = myRs.getInt("Ilan_Fiyat");
+                    int km = myRs.getInt("Ilan_Km");
+                    String tarih = myRs.getString("Ilan_Tarih");
+                    int arabaid = myRs.getInt("Ilan_ArabaID");
+                    String sehir = myRs.getString("Sehir");
+                    String aid = myRs.getString("ArabaID");//burada db deki sutun adı olacak!
+                    String marka = myRs.getString("Araba_Marka");
+                    String model = myRs.getString("Araba_Model");
+                    String vites = myRs.getString("Vites_Turu");
+                    String yakit = myRs.getString("Yakit_Turu");
+                    String renk = myRs.getString("Renk");
+
+                    dtm.addRow(new String[]{adi, String.valueOf(fiyat), String.valueOf(km), tarih, sehir, marka, model, vites, yakit, renk});
+                }
+                }
+            //fueltype
+            else if(s==4){
+                if(d == true){
+                    String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID ORDER BY Araba_YakitTuruID DESC ";
+                    myRs=myStat.executeQuery(query);
+                }
+                if(as == true){
+                    String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID ORDER BY Araba_YakitTuruID ASC ";
+                    myRs=myStat.executeQuery(query);
+                }
+                if(d == false && as == false){
+                    String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID AND Araba_YakitTuruID= '"+x+"' ";
+                    myRs=myStat.executeQuery(query);
+                }
+
+                while(myRs.next()){
+                    String id = myRs.getString("IlanID");//burada db deki sutun adı olacak!
+                    String adi = myRs.getString("Ilan_Adi");
+                    int fiyat = myRs.getInt("Ilan_Fiyat");
+                    int km = myRs.getInt("Ilan_Km");
+                    String tarih = myRs.getString("Ilan_Tarih");
+                    int arabaid = myRs.getInt("Ilan_ArabaID");
+                    String sehir = myRs.getString("Sehir");
+                    String aid = myRs.getString("ArabaID");//burada db deki sutun adı olacak!
+                    String marka = myRs.getString("Araba_Marka");
+                    String model = myRs.getString("Araba_Model");
+                    String vites = myRs.getString("Vites_Turu");
+                    String yakit = myRs.getString("Yakit_Turu");
+                    String renk = myRs.getString("Renk");
+
+                    dtm.addRow(new String[] {adi, String.valueOf(fiyat), String.valueOf(km),tarih, sehir,marka,model, vites, yakit, renk});
+                }
+            }
+            //km
+            else if(s==5){
+                if(d == true){
+                    String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID ORDER BY  Ilan_Km DESC ";
+                    myRs=myStat.executeQuery(query);
+                }
+                if(as == true){
+                    String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID ORDER BY  Ilan_Km ASC ";
+                    myRs=myStat.executeQuery(query);
+                }
+                if(d == false && as == false){
+                    if(x == 1){
+                        String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID AND  Ilan_Km BETWEEN 0 and 50.000 ";
+                        myRs=myStat.executeQuery(query);
+                    }
+                    else if(x == 2){
+                        String query="select * from ilan ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID AND Ilan_Km BETWEEN 50.000 and 100.000 ";
+                        myRs=myStat.executeQuery(query);
+                    }
+                    else if(x == 3){
+                        String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID AND  Ilan_Km BETWEEN 100.000 and 150.000 ";
+                        myRs=myStat.executeQuery(query);
+                    }
+                    else if(x == 4){
+                        String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID AND  Ilan_Km > 150.000";
+                        myRs=myStat.executeQuery(query);
+                    }
+                }
+                while(myRs.next()){
+                    String id = myRs.getString("IlanID");//burada db deki sutun adı olacak!
+                    String adi = myRs.getString("Ilan_Adi");
+                    int fiyat = myRs.getInt("Ilan_Fiyat");
+                    int km = myRs.getInt("Ilan_Km");
+                    String tarih = myRs.getString("Ilan_Tarih");
+                    int arabaid = myRs.getInt("Ilan_ArabaID");
+                    String sehir = myRs.getString("Sehir");
+                    String aid = myRs.getString("ArabaID");//burada db deki sutun adı olacak!
+                    String marka = myRs.getString("Araba_Marka");
+                    String model = myRs.getString("Araba_Model");
+                    String vites = myRs.getString("Vites_Turu");
+                    String yakit = myRs.getString("Yakit_Turu");
+                    String renk = myRs.getString("Renk");
+
+                    dtm.addRow(new String[] {adi, String.valueOf(fiyat), String.valueOf(km),tarih, sehir,marka,model, vites, yakit, renk});
+                }
+            }
+            //color
+            else if(s==6){
+                if(d == true){
+                    String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID ORDER BY Araba_RenkID DESC ";
+                    myRs=myStat.executeQuery(query);
+                }
+                if(as == true){
+                    String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID ORDER BY Araba_RenkID ASC ";
+                    myRs=myStat.executeQuery(query);
+                }
+                if(d == false && as == false){
+                    String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID AND Araba_RenkID=  '"+x+"' ";
+                    myRs=myStat.executeQuery(query);
+                }
+
+                while(myRs.next()){
+                    String id = myRs.getString("IlanID");//burada db deki sutun adı olacak!
+                    String adi = myRs.getString("Ilan_Adi");
+                    int fiyat = myRs.getInt("Ilan_Fiyat");
+                    int km = myRs.getInt("Ilan_Km");
+                    String tarih = myRs.getString("Ilan_Tarih");
+                    int arabaid = myRs.getInt("Ilan_ArabaID");
+                    String sehir = myRs.getString("Sehir");
+                    String aid = myRs.getString("ArabaID");//burada db deki sutun adı olacak!
+                    String marka = myRs.getString("Araba_Marka");
+                    String model = myRs.getString("Araba_Model");
+                    String vites = myRs.getString("Vites_Turu");
+                    String yakit = myRs.getString("Yakit_Turu");
+                    String renk = myRs.getString("Renk");
+
+                    dtm.addRow(new String[] {adi, String.valueOf(fiyat), String.valueOf(km),tarih, sehir,marka,model, vites, yakit, renk});
+                }
+            }
+            //date
+            else if(s==7){
+                if(d == true){
+                    String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID ORDER BY Ilan_Tarih DESC ";
+                    myRs=myStat.executeQuery(query);
+                }
+                if(as == true){
+                    String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID ORDER BY Ilan_Tarih ASC ";
+                    myRs=myStat.executeQuery(query);
+                }
+                if(d == false && as == false){
+                    if(x == 1){
+                        String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID AND  Ilan_Tarih = '2018-05-21' ";
+                        myRs=myStat.executeQuery(query);
+                    }
+                    else if(x == 2){
+                        String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID AND Ilan_Tarih BETWEEN  '2018-05-14' AND  '2018-05-21'";
+                        myRs=myStat.executeQuery(query);
+                    }
+                    else if(x == 3){
+                        String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID AND  Ilan_Tarih BETWEEN '2018-04-21' AND '2018-05-21' ";
+                        myRs=myStat.executeQuery(query);
+                    }
+                    else if(x == 4){
+                        String query="select * from ilan,araba,renk,vitesturu,yakitturu,sehir WHERE ilan.IlanID=araba.ArabaID  AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID AND  Ilan_Tarih > '2017-05-21'";
+                        myRs=myStat.executeQuery(query);
+                    }
+                }
+                while(myRs.next()){
+                    String id = myRs.getString("IlanID");//burada db deki sutun adı olacak!
+                    String adi = myRs.getString("Ilan_Adi");
+                    int fiyat = myRs.getInt("Ilan_Fiyat");
+                    int km = myRs.getInt("Ilan_Km");
+                    String tarih = myRs.getString("Ilan_Tarih");
+                    int arabaid = myRs.getInt("Ilan_ArabaID");
+                    String sehir = myRs.getString("Sehir");
+                    String aid = myRs.getString("ArabaID");//burada db deki sutun adı olacak!
+                    String marka = myRs.getString("Araba_Marka");
+                    String model = myRs.getString("Araba_Model");
+                    String vites = myRs.getString("Vites_Turu");
+                    String yakit = myRs.getString("Yakit_Turu");
+                    String renk = myRs.getString("Renk");
+
+                    dtm.addRow(new String[] {adi, String.valueOf(fiyat), String.valueOf(km),tarih, sehir,marka,model, vites, yakit, renk});
+                }
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return table;
+    }
+}
+//JTableTest Class
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class JTableTest {
+    private JTable table1;
+    private JPanel panel1;
+
+    public static void main(String[] args)
+    {
+        JFrame frame = new JFrame("JTable Test");
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JTable table = createTable();
+        JScrollPane scrollPane = new JScrollPane(table);
+        frame.getContentPane().add(scrollPane);
+        frame.pack();
+        frame.setVisible(true);
+    }
+
+    public static JTable createTable()
+    {
+
+
+        JTable table = new JTable();
+        table.setFillsViewportHeight(true);
+        DefaultTableModel dtm = new DefaultTableModel();
+        table.setModel(dtm);
+        dtm.setColumnIdentifiers(new String [] {"Adı","Fiyat","Km","Tarih","Şehir","Marka","Model","VitesTuruID","YakitTuruID","RenkID"});
+        try{
+
+            Connection myCon = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/arac","root","edme41");
+            Statement myStat = (Statement) myCon.createStatement();
+            ResultSet myRs = myStat.executeQuery("SELECT * FROM ilan,araba,sehir,vitesturu,yakitturu,renk WHERE IlanID=ArabaID AND araba.Araba_RenkID=Renk.RenkID AND ilan.Ilan_SehirID=Sehir.SehirID AND araba.Araba_YakitTuruID=yakitturu.YakitTuruID AND araba.Araba_VitesTuruID=vitesturu.VitesTuruID");
+
+
+            while(myRs.next()){
+                String id = myRs.getString("IlanID");//burada db deki sutun adı olacak!
+                String adi = myRs.getString("Ilan_Adi");
+                int fiyat = myRs.getInt("Ilan_Fiyat");
+                int km = myRs.getInt("Ilan_Km");
+                String tarih = myRs.getString("Ilan_Tarih");
+                int arabaid = myRs.getInt("Ilan_ArabaID");
+                String sehir = myRs.getString("Sehir");
+                String aid = myRs.getString("ArabaID");//burada db deki sutun adı olacak!
+                String marka = myRs.getString("Araba_Marka");
+                String model = myRs.getString("Araba_Model");
+                String vites = myRs.getString("Vites_Turu");
+                String yakit = myRs.getString("Yakit_Turu");
+                String renk = myRs.getString("Renk");
+
+                dtm.addRow(new String[] {adi, String.valueOf(fiyat), String.valueOf(km),tarih, sehir,marka,model, vites, yakit, renk});
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return table;
+    }
+}
